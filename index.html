@@ -115,29 +115,33 @@
 	<div id="events" class="fulldiv">
 		
 		
-		<div id="event_prev" class="abs_center" style="height:200px">
+		<div id="event_prev" class="abs_center">
 			<div id="event_top">
-				<div class="e_strip" style="top:-250px">
-					<div class="event_cont">Event 4</div>
-					<div class="event_cont">Event 5</div>
+				<div class="e_strip" style="top:-350px">
+					<div class="event_cont">Event 6</div>
+					<div class="event_cont">Event 7</div>
 					<div class="event_cont">Event 1</div>
 					<div class="event_cont">Event 2</div>
 					<div class="event_cont">Event 3</div>
 					<div class="event_cont">Event 4</div>
 					<div class="event_cont">Event 5</div>
+					<div class="event_cont">Event 6</div>
+					<div class="event_cont">Event 7</div>
 					<div class="event_cont">Event 1</div>
 					<div class="event_cont">Event 2</div>
 				</div>
 			</div>
 			<div id="event_bottom">
 				<div class="e_strip" style="top:-150px">
-					<div class="event_cont">Event 4</div>
-					<div class="event_cont">Event 5</div>
+					<div class="event_cont">Event 6</div>
+					<div class="event_cont">Event 7</div>
 					<div class="event_cont">Event 1</div>
 					<div class="event_cont">Event 2</div>
 					<div class="event_cont">Event 3</div>
 					<div class="event_cont">Event 4</div>
 					<div class="event_cont">Event 5</div>
+					<div class="event_cont">Event 6</div>
+					<div class="event_cont">Event 7</div>
 					<div class="event_cont">Event 1</div>
 					<div class="event_cont">Event 2</div>
 				</div>
@@ -187,31 +191,102 @@ var cat =
 	},
 ];
 
-var cur = 0;
-
+var cur_cat = 0,cur_event=0;
+var keyallow = true;
 function next_strip(){
+	if(!keyallow)
+	{
+		return;
+	}
+	keyallow = false;
 	var c = $('#event_right>.strip').css('background-position');
 	$('#event_right>.strip').css('background-position',((parseInt(c)-140) + 'px 0'));
 	$('#event_left>.strip').css('background-position',c);
 	$('#event_prev').css('background-position',((parseInt($('#event_prev').css('background-position')) - 935)+'px 0'));
+	setTimeout(function() {
+		keyallow = true;
+	}, 550);
 }
 function prev_strip(){
+	if(!keyallow)
+	{
+		return;
+	}
+	keyallow = false;
 	var c = $('#event_left>.strip').css('background-position');
 	$('#event_left>.strip').css('background-position',((parseInt(c)+140) + 'px 0'));
 	$('#event_right>.strip').css('background-position',c);
 	$('#event_prev').css('background-position',((parseInt($('#event_prev').css('background-position')) + 935)+'px 0'));
+	setTimeout(function() {
+		keyallow = true;
+	}, 550);
 }
+var lh = parseInt($('.event_cont').css('line-height'));
 function next_eve(){
-	$('#event_top>.e_strip').css('top',(parseInt($('#event_top>.e_strip').css('top')) - 50) + 'px');
-	$('#event_bottom>.e_strip').css('top',(parseInt($('#event_bottom>.e_strip').css('top')) - 50) + 'px');
-	var tt=parseInt($('#event_top>.e_strip').css('top'))*-1;
-	console.log(tt,($('#event_top>.e_strip>.event_cont').length-4)*50);
-	if(tt > ($('#event_top>.e_strip>.event_cont').length-4)*50)
+	if(!keyallow)
 	{
-		$('#event_top>.e_strip').css('top','-100px');
+		return;
 	}
+	keyallow = false;
+	$('#event_top>.e_strip').animate({top:(parseInt($('#event_top>.e_strip').css('top')) - lh) + 'px'},500);
+	$('#event_bottom>.e_strip').animate({top:(parseInt($('#event_bottom>.e_strip').css('top')) - lh) + 'px'},500);
+	setTimeout(function() {
+		var tt=parseInt($('#event_top>.e_strip').css('top'))*-1;
+		var bt=parseInt($('#event_bottom>.e_strip').css('top'))*-1;
+		if(tt > ($('#event_top>.e_strip>.event_cont').length-3)*lh)
+		{
+			$('#event_top>.e_strip').css('top','-100px');
+		}
+		if(bt > ($('#event_bottom>.e_strip>.event_cont').length-3)*lh)
+		{
+			$('#event_bottom>.e_strip').css('top','-100px');
+		}
+		keyallow = true;
+	}, 550);
+}
+function prev_eve(){
+	if(!keyallow)
+	{
+		return;
+	}
+	keyallow = false;
+	$('#event_top>.e_strip').animate({top:(parseInt($('#event_top>.e_strip').css('top')) + lh) + 'px'},500);
+	$('#event_bottom>.e_strip').animate({top:(parseInt($('#event_bottom>.e_strip').css('top')) + lh) + 'px'},500);
+	setTimeout(function() {
+		var tt=parseInt($('#event_top>.e_strip').css('top'))*-1;
+		var bt=parseInt($('#event_bottom>.e_strip').css('top'))*-1;
+		if(tt == 0)
+		{
+			$('#event_top>.e_strip').css('top',($('#event_top>.e_strip>.event_cont').length-4)*-lh + 'px');
+		}
+		if(bt == 0)
+		{
+			$('#event_bottom>.e_strip').css('top',($('#event_bottom>.e_strip>.event_cont').length-4)*-lh + 'px');
+		}
+		keyallow =true;
+	}, 550);
 }
 
+$(window).keydown(function(e)
+{
+    var keycode = e.keyCode || e.which;
+    switch(keycode)
+    {
+    	case 37: 
+				prev_strip();
+				break;
+    	case 38: 
+				prev_eve();
+    			break;
+    	case 39:
+				next_strip();
+    			break;
+    	case 40:
+				next_eve();
+    			break;
+    }
+});
+$('')
 </script>
 </body>
 </html>
