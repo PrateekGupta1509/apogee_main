@@ -51,9 +51,9 @@
 			right: 0;
 			margin: auto;
 			width: 20%;
-			min-height: 15vh;
-			height: auto;
+			height: 100px;
 			background-color: blue;
+			overflow: hidden;
 		}
 		#event_top{bottom:100%;}
 		#event_bottom{top: 100%;}
@@ -96,6 +96,18 @@
 		    transition: background-position 500ms ease;
 		    width: 1120px;
 		}
+
+		.e_strip{
+			position: absolute;
+			top:0;
+			left:0;
+			width: 100%;
+		}
+		.event_cont{
+			width:100%;
+			line-height: 50px;
+			text-align: center;
+		}
 	</style>
 
 </head>
@@ -103,9 +115,33 @@
 	<div id="events" class="fulldiv">
 		
 		
-		<div id="event_prev" class="abs_center">
-			<div id="event_top"></div>
-			<div id="event_bottom"></div>
+		<div id="event_prev" class="abs_center" style="height:200px">
+			<div id="event_top">
+				<div class="e_strip" style="top:-250px">
+					<div class="event_cont">Event 4</div>
+					<div class="event_cont">Event 5</div>
+					<div class="event_cont">Event 1</div>
+					<div class="event_cont">Event 2</div>
+					<div class="event_cont">Event 3</div>
+					<div class="event_cont">Event 4</div>
+					<div class="event_cont">Event 5</div>
+					<div class="event_cont">Event 1</div>
+					<div class="event_cont">Event 2</div>
+				</div>
+			</div>
+			<div id="event_bottom">
+				<div class="e_strip" style="top:-150px">
+					<div class="event_cont">Event 4</div>
+					<div class="event_cont">Event 5</div>
+					<div class="event_cont">Event 1</div>
+					<div class="event_cont">Event 2</div>
+					<div class="event_cont">Event 3</div>
+					<div class="event_cont">Event 4</div>
+					<div class="event_cont">Event 5</div>
+					<div class="event_cont">Event 1</div>
+					<div class="event_cont">Event 2</div>
+				</div>
+			</div>
 			<div id="event_left">
 				<div class="strip"></div>
 			</div>
@@ -165,7 +201,16 @@ function prev_strip(){
 	$('#event_right>.strip').css('background-position',c);
 	$('#event_prev').css('background-position',((parseInt($('#event_prev').css('background-position')) + 935)+'px 0'));
 }
-
+function next_eve(){
+	$('#event_top>.e_strip').css('top',(parseInt($('#event_top>.e_strip').css('top')) - 50) + 'px');
+	$('#event_bottom>.e_strip').css('top',(parseInt($('#event_bottom>.e_strip').css('top')) - 50) + 'px');
+	var tt=parseInt($('#event_top>.e_strip').css('top'))*-1;
+	console.log(tt,($('#event_top>.e_strip>.event_cont').length-4)*50);
+	if(tt > ($('#event_top>.e_strip>.event_cont').length-4)*50)
+	{
+		$('#event_top>.e_strip').css('top','-100px');
+	}
+}
 
 </script>
 </body>
