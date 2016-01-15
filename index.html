@@ -108,6 +108,31 @@
 			line-height: 50px;
 			text-align: center;
 		}
+		.show_event{
+			overflow: hidden;
+			color: white;
+		}
+		.se_head{
+			position: relative;
+			top: -50px;
+			width: 100%;
+			opacity: 0;
+			font-size: 1em;
+			white-space: nowrap;
+			text-align: center;
+			background-color: rgba(0,0,0,0.5);
+			-moz-transition: font-size 350ms ease;
+			-webkit-transition: font-size 350ms ease;
+		    transition: font-size 350ms ease;
+		}
+		.se_descr{
+			position: absolute;
+			top: 100px;
+			bottom: 0;
+			background-color: rgba(0,0,0,0.5);
+			padding: 0 10%;
+			opacity: 0;
+		}
 	</style>
 
 </head>
@@ -117,33 +142,13 @@
 		
 		<div id="event_prev" class="abs_center">
 			<div id="event_top">
-				<div class="e_strip" style="top:-350px">
-					<div class="event_cont">Event 6</div>
-					<div class="event_cont">Event 7</div>
-					<div class="event_cont">Event 1</div>
-					<div class="event_cont">Event 2</div>
-					<div class="event_cont">Event 3</div>
-					<div class="event_cont">Event 4</div>
-					<div class="event_cont">Event 5</div>
-					<div class="event_cont">Event 6</div>
-					<div class="event_cont">Event 7</div>
-					<div class="event_cont">Event 1</div>
-					<div class="event_cont">Event 2</div>
+				<div class="e_strip">
+					<div class="event_cont"></div>
 				</div>
 			</div>
 			<div id="event_bottom">
-				<div class="e_strip" style="top:-150px">
-					<div class="event_cont">Event 6</div>
-					<div class="event_cont">Event 7</div>
-					<div class="event_cont">Event 1</div>
-					<div class="event_cont">Event 2</div>
-					<div class="event_cont">Event 3</div>
-					<div class="event_cont">Event 4</div>
-					<div class="event_cont">Event 5</div>
-					<div class="event_cont">Event 6</div>
-					<div class="event_cont">Event 7</div>
-					<div class="event_cont">Event 1</div>
-					<div class="event_cont">Event 2</div>
+				<div class="e_strip">
+					<div class="event_cont"></div>
 				</div>
 			</div>
 			<div id="event_left">
@@ -152,44 +157,15 @@
 			<div id="event_right">
 				<div class="strip"></div>
 			</div>
-			<!-- <div id="backstrip"></div> -->
+			<div class="show_event abs_center">
+				<div class="se_head">Event Name</div>
+				<div class="se_descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi architecto pariatur excepturi, sequi rerum tempora culpa quas quo ratione, laudantium, doloremque iure ex repudiandae odio recusandae, maiores doloribus. Quo, facilis.</div>
+			</div>
 		</div>
 	</div>
 
 <script type="text/javascript">
-var cat =
-[
-	{
-		"cat_name" : "c1",	
-		"events" : [],
-		"icon" : "img/icon/c1.jpg",
-		"backg" : "img/icon/cb1.jpg"
-	},
-	{
-		"cat_name" : "c2",	
-		"events" : [],
-		"icon" : "img/icon/c2.jpg",
-		"backg" : "img/icon/cb2.jpg"
-	},
-	{
-		"cat_name" : "c3",	
-		"events" : [],
-		"icon" : "img/icon/c3.jpg",
-		"backg" : "img/icon/cb3.jpg"
-	},
-	{
-		"cat_name" : "c4",	
-		"events" : [],
-		"icon" : "img/icon/c4.jpg",
-		"backg" : "img/icon/cb4.jpg"
-	},
-	{
-		"cat_name" : "c5",	
-		"events" : [],
-		"icon" : "img/icon/c5.jpg",
-		"backg" : "img/icon/cb5.jpg"
-	},
-];
+var event_data;
 
 var cur_cat = 0,cur_event=0;
 var keyallow = true;
@@ -203,6 +179,10 @@ function next_strip(){
 	$('#event_right>.strip').css('background-position',((parseInt(c)-140) + 'px 0'));
 	$('#event_left>.strip').css('background-position',c);
 	$('#event_prev').css('background-position',((parseInt($('#event_prev').css('background-position')) - 935)+'px 0'));
+	cur_cat++;
+	if(cur_cat == event_data.length)
+		cur_cat = 0;
+	open_category(cur_cat);
 	setTimeout(function() {
 		keyallow = true;
 	}, 550);
@@ -217,6 +197,10 @@ function prev_strip(){
 	$('#event_left>.strip').css('background-position',((parseInt(c)+140) + 'px 0'));
 	$('#event_right>.strip').css('background-position',c);
 	$('#event_prev').css('background-position',((parseInt($('#event_prev').css('background-position')) + 935)+'px 0'));
+	cur_cat--;
+	if(cur_cat<0)
+		cur_cat = event_data.length - 1;
+	open_category(cur_cat);
 	setTimeout(function() {
 		keyallow = true;
 	}, 550);
@@ -230,6 +214,19 @@ function next_eve(){
 	keyallow = false;
 	$('#event_top>.e_strip').animate({top:(parseInt($('#event_top>.e_strip').css('top')) - lh) + 'px'},500);
 	$('#event_bottom>.e_strip').animate({top:(parseInt($('#event_bottom>.e_strip').css('top')) - lh) + 'px'},500);
+	$('.show_event>.se_head').animate({'top':'100px','opacity':0},200);
+	$('.show_event>.se_head').css('font-size','1em');
+	$('.show_event>.se_descr').animate({'top':'300px','opacity':0},200);
+	setTimeout(function() {
+		$('.show_event>.se_head').html('Changed');
+		$('.show_event>.se_descr').html('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, reprehenderit laboriosam, aperiam natus deleniti hic voluptate quisquam enim, numquam sint possimus voluptatum! Vitae molestiae numquam, dolores repellat eaque, animi dolorum.');
+		$('.show_event>.se_head').css({'top':'-50px'});
+		$('.show_event>.se_head').css('opacity','1');
+		$('.show_event>.se_head').animate({'top':'25px'},250);
+		$('.show_event>.se_head').css('font-size','3em');
+		$('.show_event>.se_descr').css('top','100px');
+		$('.show_event>.se_descr').animate({'opacity':1},250);
+	}, 250);
 	setTimeout(function() {
 		var tt=parseInt($('#event_top>.e_strip').css('top'))*-1;
 		var bt=parseInt($('#event_bottom>.e_strip').css('top'))*-1;
@@ -252,6 +249,15 @@ function prev_eve(){
 	keyallow = false;
 	$('#event_top>.e_strip').animate({top:(parseInt($('#event_top>.e_strip').css('top')) + lh) + 'px'},500);
 	$('#event_bottom>.e_strip').animate({top:(parseInt($('#event_bottom>.e_strip').css('top')) + lh) + 'px'},500);
+	$('.show_event>.se_head').animate({'top':'100px','opacity':0},200);
+	$('.show_event>.se_head').css('font-size','1em');
+	setTimeout(function() {
+		$('.show_event>.se_head').html('Changed');
+		$('.show_event>.se_head').css({'top':'-50px'});
+		$('.show_event>.se_head').css('opacity','1');
+		$('.show_event>.se_head').animate({'top':'25px'},250);
+		$('.show_event>.se_head').css('font-size','3em');
+	}, 250);
 	setTimeout(function() {
 		var tt=parseInt($('#event_top>.e_strip').css('top'))*-1;
 		var bt=parseInt($('#event_bottom>.e_strip').css('top'))*-1;
@@ -286,7 +292,49 @@ $(window).keydown(function(e)
     			break;
     }
 });
-$('')
+$(window).load(function(){
+	$('#event_top').click(function(){
+		prev_eve();
+	});
+	$('#event_bottom').click(function(){
+		next_eve();
+	});
+	$('#event_left').click(function(){
+		prev_strip();
+	});
+	$('#event_right').click(function(){
+		next_strip();
+	});
+});
+function summaryGet(){
+	$.ajax({
+		url: "http://bits-apogee.org/2016/events/summary/",
+		method: "GET",
+		success: function(data){
+			event_data = data;
+			console.log(data);
+			open_category(cur_cat);
+		}
+	});
+}
+
+function open_category(x){
+	var data = event_data[x].events,ele="";
+	$('#event_top > .e_strip').fadeOut(250);
+	$('#event_bottom > .e_strip').fadeOut(250);
+	ele += '<div class="event_cont">'+data[data.length-2].name+'</div><div class="event_cont">'+data[data.length-1].name+'</div>'
+	for(var i=0;i<data.length;i++){
+		ele += '<div class="event_cont">'+data[i].name+'</div>';
+	}
+	ele += '<div class="event_cont">'+data[0].name+'</div><div class="event_cont">'+data[1].name+'</div>';
+	setTimeout(function() {
+		$('.e_strip').html(ele);
+		$('#event_top>.e_strip').css('top',-lh + 'px');
+		$('#event_bottom>.e_strip').css('top',(-lh*4) + 'px');
+		$('.e_strip').fadeIn(200);
+	}, 300);
+}
+
 </script>
 </body>
 </html>
