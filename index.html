@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>APOGEE 16</title>
+<link href='https://fonts.googleapis.com/css?family=Lato:400,300,900' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <script src="js/jquery.min.js"></script>
 <style type="text/css">
@@ -40,10 +41,46 @@ body,html
 	bottom: 0;
 	margin: auto;
 }
+/*for search*/
+.search{
+	position: absolute;
+	right: -300px;
+	height: 50px;
+	z-index: 10;
 
+}
+.search_ico{
+	position: absolute;
+    top: 0;
+    right: 100%;
+    width: 50px;
+    height: 50px;
+    background-color: #C82C45;
+    line-height: 50px;
+    text-align: center;
+    font-size: 1.6em;
+    color: #fff;
+    cursor: pointer;
+}
+.search_box{
+	position: relative;
+	width: 300px;
+	height:50px;
+	line-height: 50px;
+    background-color: #C82C45;
+}
+.search_box>input{
+	width: 90%;
+    height: 25px;
+    font-size: 1.2em;
+    padding: 5px;
+    outline: none;
+}
+/*for search END*/
 #events{
 	background: url('./img/icon/back.svg');
 	background-size: 100% auto;
+	font-family: 'Lato', sans-serif;
 }
 
 #event_top,#event_bottom
@@ -143,24 +180,42 @@ body,html
 	font-size: 1em;
 	white-space: nowrap;
 	text-align: center;
-	background-color: rgba(0,0,0,0.5);
+	font-weight: 900;
+	padding: 25px 0;
+	border-bottom: 1px solid #fff;
+	text-shadow: 2px 2px 3px #000;
 	-moz-transition: font-size 350ms ease;
 	-webkit-transition: font-size 350ms ease;
     transition: font-size 350ms ease;
 }
 .se_descr{
 	position: absolute;
-	top: 100px;
+	bottom: 0px;
 	width:100%;
-	bottom: 0;
-	background-color: rgba(0,0,0,0.5);
-	padding: 0 10%;
+	padding: 25px 10% 20px 10%;
+	margin-top:108px;
+	overflow:auto;
 	opacity: 0;
+	font-size: 1.3em;
+    font-weight: 300;
+    text-shadow: 1px 1px 2px #000;
+}
+.light_large_font{
+	font-size: 1.6em;
+	font-weight: 300;
+	padding-top:20px;
+	text-align: center;
+	text-shadow: 1px 1px 2px #000;
 }
 #show_more{
 	position: absolute;
 	bottom: 30px;
-	right: 30px;
+	right: 0;
+	left: 0;
+    margin: auto;
+    width: 150px;
+    text-align: center;
+    font-weight: 900;
 	color: white;
 	border: 1px solid #fff;	
 	line-height: 35px;
@@ -173,6 +228,7 @@ body,html
 #show_more:hover{
 	color: #000;
 	background-color: #fff;
+	text-shadow:none;
 }
 .se_ico{
 	position: absolute;
@@ -230,7 +286,14 @@ body,html
 </head>
 <body>
 <div id="events" class="fulldiv">
-	
+	<div class="search">
+		<div class="search_ico">
+			<li class="fa fa-search"></li>
+		</div>
+		<div class="search_box">
+			<input type="text" style="width:90%">
+		</div>
+	</div>
 	<div id="event_prev" class="abs_center">
 		<div id="event_top">
 			<div class="e_strip">
@@ -275,6 +338,7 @@ function next_strip(){
 		return;
 	}
 	keyallow = false;
+	$('.show_event').css('background-color','rgba(0,0,0,0)');
 	var c = $('#event_right>.strip').css('background-position');
 	$('#event_right>.strip').css('background-position',((parseInt(c)-140) + 'px 0'));
 	$('#event_left>.strip').css('background-position',c);
@@ -294,6 +358,7 @@ function prev_strip(){
 		return;
 	}
 	keyallow = false;
+	$('.show_event').css('background-color','rgba(0,0,0,0)');
 	var c = $('#event_left>.strip').css('background-position');
 	$('#event_left>.strip').css('background-position',((parseInt(c)+140) + 'px 0'));
 	$('#event_right>.strip').css('background-position',c);
@@ -314,11 +379,12 @@ function next_eve(){
 		return;
 	}
 	keyallow = false;
+	$('.show_event').css('background-color','rgba(0,0,0,0.5)');
 	$('#event_top>.e_strip').animate({top:(parseInt($('#event_top>.e_strip').css('top')) - lh) + 'px'},500);
 	$('#event_bottom>.e_strip').animate({top:(parseInt($('#event_bottom>.e_strip').css('top')) - lh) + 'px'},500);
 	$('.show_event>.se_head').animate({'top':'-50px','opacity':0},200);
 	$('.show_event>.se_head').css('font-size','1em');
-	$('.show_event>.se_descr').animate({'top':'0px','opacity':0},200);
+	$('.show_event>.se_descr').animate({'top':'-100px','opacity':0},200);
 	$('.se_ico').html('');
 	setTimeout(function() {
 		cur_event++;
@@ -326,13 +392,13 @@ function next_eve(){
 			cur_event = 0;
 		}
 		$('.show_event>.se_head').html(events_list[cur_cat].events[cur_event].name);
-		$('.show_event>.se_descr').html(events_list[cur_cat].events[cur_event].short_desc +'<div id="show_more">Show More</div>');
+		$('.show_event>.se_descr').html('<div class="light_large_font">'+events_list[cur_cat].events[cur_event].short_desc + '</div><div id="show_more">Show More</div>');
 		$('.show_event>.se_head').css({'top':'100px'});
 		$('.show_event>.se_head').css('opacity','1');
-		$('.show_event>.se_head').animate({'top':'25px'},250);
+		$('.show_event>.se_head').animate({'top':'0px'},250);
 		$('.show_event>.se_head').css('font-size','3em');
 		$('.show_event>.se_descr').css('top','200px');
-		$('.show_event>.se_descr').animate({'top':'100px','opacity':1},250);
+		$('.show_event>.se_descr').animate({'top':'0px','opacity':1},250);
 	}, 250);
 	setTimeout(function() {
 		var tt=parseInt($('#event_top>.e_strip').css('top'))*-1;
@@ -354,11 +420,12 @@ function prev_eve(){
 		return;
 	}
 	keyallow = false;
+	$('.show_event').css('background-color','rgba(0,0,0,0.5)');
 	$('#event_top>.e_strip').animate({top:(parseInt($('#event_top>.e_strip').css('top')) + lh) + 'px'},500);
 	$('#event_bottom>.e_strip').animate({top:(parseInt($('#event_bottom>.e_strip').css('top')) + lh) + 'px'},500);
 	$('.show_event>.se_head').animate({'top':'100px','opacity':0},200);
 	$('.show_event>.se_head').css('font-size','1em');
-	$('.show_event>.se_descr').animate({'top':'300px','opacity':0},200);
+	$('.show_event>.se_descr').animate({'top':'200px','opacity':0},200);
 	$('.se_ico').html('');
 	setTimeout(function() {
 		cur_event--;
@@ -366,13 +433,13 @@ function prev_eve(){
 			cur_event = events_list[cur_cat].events.length - 1;
 		}
 		$('.show_event>.se_head').html(events_list[cur_cat].events[cur_event].name);
-		$('.show_event>.se_descr').html(events_list[cur_cat].events[cur_event].short_desc +'<div id="show_more">Show More</div>');
+		$('.show_event>.se_descr').html('<div class="light_large_font">'+events_list[cur_cat].events[cur_event].short_desc +'</div><div id="show_more">Show More</div>');
 		$('.show_event>.se_head').css({'top':'-50px'});
 		$('.show_event>.se_head').css('opacity','1');
-		$('.show_event>.se_head').animate({'top':'25px'},250);
+		$('.show_event>.se_head').animate({'top':'0px'},250);
 		$('.show_event>.se_head').css('font-size','3em');
-		$('.show_event>.se_descr').css('top','0px');
-		$('.show_event>.se_descr').animate({'top':'100px','opacity':1},250);
+		$('.show_event>.se_descr').css('top','-100px');
+		$('.show_event>.se_descr').animate({'top':'0px','opacity':1},250);
 	}, 250);
 	setTimeout(function() {
 		var tt=parseInt($('#event_top>.e_strip').css('top'))*-1;
@@ -410,6 +477,9 @@ $(window).keydown(function(e)
 });
 $(window).load(function(){
 	summaryGet();
+	$('.search_ico').click(function(){
+		$(this).parent().animate({'right':0},200);
+	});
 	$('#event_top').click(function(){
 		prev_eve();
 	});
@@ -429,7 +499,6 @@ $(window).load(function(){
 		var x = $(this).data('eve_id'),
 		y = $(this).data('eve_pos'),
 		z = $(this).data('eve_type');
-		console.log(x,y,z);
 		$('.se_descr').html(event_data[x].tabs[y][z]);
 	});
 });
@@ -439,13 +508,12 @@ function summaryGet(){
 		method: "GET",
 		success: function(data){
 			events_list = data;
-			console.log(data);
 			open_category(cur_cat);
-			keyallow = true;
 		}
 	});
 }
 function open_category(x){
+	keyallow = false;
 	var data = events_list[x].events,ele="";
 	$('#event_top > .e_strip').fadeOut(250);
 	$('#event_bottom > .e_strip').fadeOut(250);
@@ -464,6 +532,7 @@ function open_category(x){
 		$('#event_bottom>.e_strip').css('top',(-lh*4) + 'px');
 		cur_event = 1;
 		$('.e_strip').fadeIn(200);
+		keyallow = true;
 	}, 300);
 }
 var icon_map = {
@@ -491,7 +560,7 @@ function show_all_det(id){
 	}
 	$('.se_ico').html(ele);
 	$('.se_ico').fadeIn();
-	$('.se_descr').html("ho gaya");
+	$('.se_descr').html(event_data[id].tabs[0][$('.se_ico>div').data('eve_type')]);
 }
 function get_event_detail(id,call_back){
 	if(typeof event_data[id] !== 'undefined')
