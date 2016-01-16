@@ -1,174 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>APOGEE 16</title>
-	<script src="js/jquery.min.js"></script>
-	<style type="text/css">
-		*{
-			box-sizing:border-box;
-		}
+<meta charset="UTF-8">
+<title>APOGEE 16</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<script src="js/jquery.min.js"></script>
+<style type="text/css">
+*{
+	box-sizing:border-box;
+}
 
-		body,html
-		{
-			position: absolute;
-			top: 0;
-			left: 0;
-			margin: 0;
-			padding: 0;
-			width: 100%;
-			height: 100%;
-			overflow:hidden;
-		}
+body,html
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow:hidden;
+}
 
-		.fulldiv
-		{
-			position: absolute;
-			top:0;
-			left: 0;
-			width: 100vw;
-			height: 100vh;
-		}
+.fulldiv
+{
+	position: absolute;
+	top:0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+}
 
-		.abs_center
-		{
-			position: absolute;
-			top:0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			margin: auto;
-		}
+.abs_center
+{
+	position: absolute;
+	top:0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
 
-		#events{
-			background-color: red;
-		}
+#events{
+	background: url('./img/icon/back.svg');
+	background-size: 100% auto;
+}
 
-		#event_top,#event_bottom
-		{
-			position: absolute;
-			left:0;
-			right: 0;
-			margin: auto;
-			width: 20%;
-			height: 100px;
-			background-color: blue;
-			overflow: hidden;
-		}
-		#event_top{bottom:100%;}
-		#event_bottom{top: 100%;}
+#event_top,#event_bottom
+{
+	position: absolute;
+	left:0;
+	right: 0;
+	margin: auto;
+	width: 20%;
+	height: 100px;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	border-left: 20px solid #02567e;
+	border-right: 20px solid #02567e;
+	background-color: #f9fbd6;
+	overflow: hidden;
+}
+#event_top{bottom:100%;}
+#event_bottom{top: 100%;}
+#wire_cood{
+	position: absolute;
+	bottom:100%;
+	right: 30px;
+	width:150px;
+}
+#event_left,#event_right
+{
+	position: absolute;
+	width: 1120px;
+	top:0;
+	bottom: 0;
+	margin: auto;
+	height: 140px;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	border-top: 20px solid #02567e;
+	border-bottom: 20px solid #02567e;
+	background-color: #001328;
+}
+#event_left{right:100%;}
+#event_right{left: 100%;}
 
-		#event_left,#event_right
-		{
-			position: absolute;
-			width: 1120px;
-			top:0;
-			bottom: 0;
-			margin: auto;
-			height: 140px;
-			background-color: yellow;
-		}
-		#event_left{right:100%;}
-		#event_right{left: 100%;}
+#event_prev
+{
+	width: 959px;
+	height: 540px;
+	background-color: black;
+	background: url("img/icon/bgs.svg");
+	/*background-repeat: repeat-x;*/
+    background-size: 7672px 540px;
+    background-position: 0 0; 
+    border-radius: 20px;
+    -webkit-transition: background-position 500ms ease;
+    transition: background-position 500ms ease;
+}
 
-		#event_prev
-		{
-			width: 935px;
-			height: 550px;
-			background-color: black;
-			background: url("img/icon/bgs.png");
-			/*background-repeat: repeat-x;*/
-		    background-size: auto 100%;
-		    background-position: 0 0; 
-		    -webkit-transition: background-position 500ms ease;
-		    transition: background-position 500ms ease;
-		}
+#event_left .strip {background-position: 0px 0; }
+#event_right .strip {background-position: -140px 0; }
+.strip{
+	background: url("img/icon/strip.png");
+	/*background-repeat: repeat-x;*/
+    background-size: auto 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-transition: background-position 500ms ease;
+    transition: background-position 500ms ease;
+    width: 1120px;
+}
 
-		#event_left .strip {background-position: 0px 0; }
-		#event_right .strip {background-position: -140px 0; }
-		.strip{
-			background: url("img/icon/strip.png");
-			/*background-repeat: repeat-x;*/
-		    background-size: auto 100%;
-		    height: 100%;
-		    position: absolute;
-		    -webkit-transition: background-position 500ms ease;
-		    transition: background-position 500ms ease;
-		    width: 1120px;
-		}
-
-		.e_strip{
-			position: absolute;
-			top:0;
-			left:0;
-			width: 100%;
-		}
-		.event_cont{
-			width:100%;
-			line-height: 50px;
-			text-align: center;
-		}
-		.show_event{
-			overflow: hidden;
-			color: white;
-		}
-		.se_head{
-			position: relative;
-			top: -50px;
-			width: 100%;
-			opacity: 0;
-			font-size: 1em;
-			white-space: nowrap;
-			text-align: center;
-			background-color: rgba(0,0,0,0.5);
-			-moz-transition: font-size 350ms ease;
-			-webkit-transition: font-size 350ms ease;
-		    transition: font-size 350ms ease;
-		}
-		.se_descr{
-			position: absolute;
-			top: 100px;
-			bottom: 0;
-			background-color: rgba(0,0,0,0.5);
-			padding: 0 10%;
-			opacity: 0;
-		}
-	</style>
+.e_strip{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+}
+.event_cont{
+	width:100%;
+	line-height: 50px;
+	padding: 0 15px;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.show_event{
+	overflow: hidden;
+	color: white;
+	border: 15px solid #f9fbd6;
+	border-radius: 20px;
+	box-shadow: inset 0 0 20px #000;
+}
+.se_head{
+	position: relative;
+	top: -50px;
+	width: 100%;
+	opacity: 0;
+	font-size: 1em;
+	white-space: nowrap;
+	text-align: center;
+	background-color: rgba(0,0,0,0.5);
+	-moz-transition: font-size 350ms ease;
+	-webkit-transition: font-size 350ms ease;
+    transition: font-size 350ms ease;
+}
+.se_descr{
+	position: absolute;
+	top: 100px;
+	width:100%;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.5);
+	padding: 0 10%;
+	opacity: 0;
+}
+#show_more{
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
+	color: white;
+	border: 1px solid #fff;	
+	line-height: 35px;
+	padding: 0 10px;
+	cursor: pointer;
+	-moz-transition: all 350ms ease;
+	-webkit-transition: all 350ms ease;
+    transition: all 350ms ease;
+}
+#show_more:hover{
+	color: #000;
+	background-color: #fff;
+}
+.se_ico{
+	position: absolute;
+    right: 20px;
+    top: 110px;
+}
+.eve_det_ico{
+    position: relative;
+    width: 40px;
+    height: 40px;
+	margin: 10px 0;
+    text-align: center;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    font-size: 1.5em;
+    line-height: 40px;
+    cursor: pointer;
+    -moz-transition: all 350ms ease;
+	-webkit-transition: all 350ms ease;
+    transition: all 350ms ease;
+}
+.eve_det_ico:hover{
+	color: #000;
+	background-color: #fff;
+}
+.eve_det_ico:hover > .ico_name{
+	display: block;
+}
+.ico_name{
+    display: none;
+    position: absolute;
+    line-height: 20px;
+    top: 5px;
+    right: calc(100% + 10px);
+    background-color: #000;
+    color: #fff;
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+.ico_name > div{
+	position: absolute;
+    width: 7px;
+    height: 7px;
+    top: 11.5px;
+    right: -3.5px;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    background-color: black;
+}
+</style>
 
 </head>
 <body>
-	<div id="events" class="fulldiv">
-		
-		
-		<div id="event_prev" class="abs_center">
-			<div id="event_top">
-				<div class="e_strip">
-					<div class="event_cont"></div>
-				</div>
+<div id="events" class="fulldiv">
+	
+	<div id="event_prev" class="abs_center">
+		<div id="event_top">
+			<div class="e_strip">
+				<div class="event_cont"></div>
 			</div>
-			<div id="event_bottom">
-				<div class="e_strip">
-					<div class="event_cont"></div>
-				</div>
+		</div>
+		<div id="event_bottom">
+			<div class="e_strip">
+				<div class="event_cont"></div>
 			</div>
-			<div id="event_left">
-				<div class="strip"></div>
+		</div>
+		<div id="event_left">
+			<div class="strip"></div>
+		</div>
+		<div id="event_right">
+			<div class="strip"></div>
+		</div>
+		<img src="img/icon/screen.svg" id="wire_cood">
+		<div class="show_event abs_center">
+			<div class="se_head">
+				<!-- added by next_event and prev_event -->
 			</div>
-			<div id="event_right">
-				<div class="strip"></div>
+			<div class="se_descr">
+				<!-- added by next_event and prev_event -->
 			</div>
-			<div class="show_event abs_center">
-				<div class="se_head">Event Name</div>
-				<div class="se_descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi architecto pariatur excepturi, sequi rerum tempora culpa quas quo ratione, laudantium, doloremque iure ex repudiandae odio recusandae, maiores doloribus. Quo, facilis.</div>
+			<div class="se_ico">
+				<!-- added by show_all_det -->
 			</div>
 		</div>
 	</div>
+</div>
 
 <script type="text/javascript">
-var event_data;
+var events_list,event_data=[];
 
 var cur_cat = 0,cur_event=0;
-var keyallow = true;
+var keyallow = false;
+var disp = $('#event_prev').width();
 function next_strip(){
 	if(!keyallow)
 	{
@@ -178,10 +278,11 @@ function next_strip(){
 	var c = $('#event_right>.strip').css('background-position');
 	$('#event_right>.strip').css('background-position',((parseInt(c)-140) + 'px 0'));
 	$('#event_left>.strip').css('background-position',c);
-	$('#event_prev').css('background-position',((parseInt($('#event_prev').css('background-position')) - 935)+'px 0'));
+	$('#event_prev').css('background-position',((parseInt($('#event_prev').css('background-position')) - disp)+'px 0'));
 	cur_cat++;
-	if(cur_cat == event_data.length)
+	if(cur_cat == events_list.length)
 		cur_cat = 0;
+	$('.se_ico').html('');
 	open_category(cur_cat);
 	setTimeout(function() {
 		keyallow = true;
@@ -196,10 +297,11 @@ function prev_strip(){
 	var c = $('#event_left>.strip').css('background-position');
 	$('#event_left>.strip').css('background-position',((parseInt(c)+140) + 'px 0'));
 	$('#event_right>.strip').css('background-position',c);
-	$('#event_prev').css('background-position',((parseInt($('#event_prev').css('background-position')) + 935)+'px 0'));
+	$('#event_prev').css('background-position',((parseInt($('#event_prev').css('background-position')) + disp)+'px 0'));
 	cur_cat--;
 	if(cur_cat<0)
-		cur_cat = event_data.length - 1;
+		cur_cat = events_list.length - 1;
+	$('.se_ico').html('');
 	open_category(cur_cat);
 	setTimeout(function() {
 		keyallow = true;
@@ -214,18 +316,23 @@ function next_eve(){
 	keyallow = false;
 	$('#event_top>.e_strip').animate({top:(parseInt($('#event_top>.e_strip').css('top')) - lh) + 'px'},500);
 	$('#event_bottom>.e_strip').animate({top:(parseInt($('#event_bottom>.e_strip').css('top')) - lh) + 'px'},500);
-	$('.show_event>.se_head').animate({'top':'100px','opacity':0},200);
+	$('.show_event>.se_head').animate({'top':'-50px','opacity':0},200);
 	$('.show_event>.se_head').css('font-size','1em');
-	$('.show_event>.se_descr').animate({'top':'300px','opacity':0},200);
+	$('.show_event>.se_descr').animate({'top':'0px','opacity':0},200);
+	$('.se_ico').html('');
 	setTimeout(function() {
-		$('.show_event>.se_head').html('Changed');
-		$('.show_event>.se_descr').html('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, reprehenderit laboriosam, aperiam natus deleniti hic voluptate quisquam enim, numquam sint possimus voluptatum! Vitae molestiae numquam, dolores repellat eaque, animi dolorum.');
-		$('.show_event>.se_head').css({'top':'-50px'});
+		cur_event++;
+		if(cur_event == events_list[cur_cat].events.length){
+			cur_event = 0;
+		}
+		$('.show_event>.se_head').html(events_list[cur_cat].events[cur_event].name);
+		$('.show_event>.se_descr').html(events_list[cur_cat].events[cur_event].short_desc +'<div id="show_more">Show More</div>');
+		$('.show_event>.se_head').css({'top':'100px'});
 		$('.show_event>.se_head').css('opacity','1');
 		$('.show_event>.se_head').animate({'top':'25px'},250);
 		$('.show_event>.se_head').css('font-size','3em');
-		$('.show_event>.se_descr').css('top','100px');
-		$('.show_event>.se_descr').animate({'opacity':1},250);
+		$('.show_event>.se_descr').css('top','200px');
+		$('.show_event>.se_descr').animate({'top':'100px','opacity':1},250);
 	}, 250);
 	setTimeout(function() {
 		var tt=parseInt($('#event_top>.e_strip').css('top'))*-1;
@@ -251,12 +358,21 @@ function prev_eve(){
 	$('#event_bottom>.e_strip').animate({top:(parseInt($('#event_bottom>.e_strip').css('top')) + lh) + 'px'},500);
 	$('.show_event>.se_head').animate({'top':'100px','opacity':0},200);
 	$('.show_event>.se_head').css('font-size','1em');
+	$('.show_event>.se_descr').animate({'top':'300px','opacity':0},200);
+	$('.se_ico').html('');
 	setTimeout(function() {
-		$('.show_event>.se_head').html('Changed');
+		cur_event--;
+		if(cur_event < 0){
+			cur_event = events_list[cur_cat].events.length - 1;
+		}
+		$('.show_event>.se_head').html(events_list[cur_cat].events[cur_event].name);
+		$('.show_event>.se_descr').html(events_list[cur_cat].events[cur_event].short_desc +'<div id="show_more">Show More</div>');
 		$('.show_event>.se_head').css({'top':'-50px'});
 		$('.show_event>.se_head').css('opacity','1');
 		$('.show_event>.se_head').animate({'top':'25px'},250);
 		$('.show_event>.se_head').css('font-size','3em');
+		$('.show_event>.se_descr').css('top','0px');
+		$('.show_event>.se_descr').animate({'top':'100px','opacity':1},250);
 	}, 250);
 	setTimeout(function() {
 		var tt=parseInt($('#event_top>.e_strip').css('top'))*-1;
@@ -293,6 +409,7 @@ $(window).keydown(function(e)
     }
 });
 $(window).load(function(){
+	summaryGet();
 	$('#event_top').click(function(){
 		prev_eve();
 	});
@@ -305,23 +422,37 @@ $(window).load(function(){
 	$('#event_right').click(function(){
 		next_strip();
 	});
+	$('.se_descr').on('click','#show_more',function(){
+		get_event_detail(events_list[cur_cat].events[cur_event].id,show_all_det);
+	});
+	$('.se_ico').on('click','.eve_det_ico',function(){
+		var x = $(this).data('eve_id'),
+		y = $(this).data('eve_pos'),
+		z = $(this).data('eve_type');
+		console.log(x,y,z);
+		$('.se_descr').html(event_data[x].tabs[y][z]);
+	});
 });
 function summaryGet(){
 	$.ajax({
 		url: "http://bits-apogee.org/2016/events/summary/",
 		method: "GET",
 		success: function(data){
-			event_data = data;
+			events_list = data;
 			console.log(data);
 			open_category(cur_cat);
+			keyallow = true;
 		}
 	});
 }
-
 function open_category(x){
-	var data = event_data[x].events,ele="";
+	var data = events_list[x].events,ele="";
 	$('#event_top > .e_strip').fadeOut(250);
 	$('#event_bottom > .e_strip').fadeOut(250);
+	$('.show_event>.se_head').animate({'top':'100px','opacity':0},200);
+	$('.show_event>.se_head').css('font-size','1em');
+	$('.show_event>.se_descr').animate({'top':'300px','opacity':0},200);
+
 	ele += '<div class="event_cont">'+data[data.length-2].name+'</div><div class="event_cont">'+data[data.length-1].name+'</div>'
 	for(var i=0;i<data.length;i++){
 		ele += '<div class="event_cont">'+data[i].name+'</div>';
@@ -331,10 +462,52 @@ function open_category(x){
 		$('.e_strip').html(ele);
 		$('#event_top>.e_strip').css('top',-lh + 'px');
 		$('#event_bottom>.e_strip').css('top',(-lh*4) + 'px');
+		cur_event = 1;
 		$('.e_strip').fadeIn(200);
 	}, 300);
 }
-
+var icon_map = {
+	'Sponsors': 'rupee',
+	'FAQs': 'question',
+	'Resources': 'link',
+	'Rules': 'list',
+	'Problem Statements': 'file-text',
+	'Specifications': 'gear',
+	'Materials': 'wrench',
+	'Sample Questions': 'check-square-o',
+	'Guidelines': 'info',
+	'Registration Details': 'database',
+	'Judging Criteria': 'gavel',
+	'Eligibility': 'check				',
+	'Overview ': 'circle-o',
+}
+function show_all_det(id){
+	var tabs = event_data[id].tabs,ele="";
+	for(var x=0;x<tabs.length;x++)
+	{
+		for(var y in tabs[x]){
+			ele +='<div class="eve_det_ico" data-eve_id="'+id+'" data-eve_pos="'+x+'" data-eve_type="'+y+'"><div class="ico_name">'+y+'<div></div></div><i class="fa fa-'+icon_map[y]+'"></i></div>';
+		}
+	}
+	$('.se_ico').html(ele);
+	$('.se_ico').fadeIn();
+	$('.se_descr').html("ho gaya");
+}
+function get_event_detail(id,call_back){
+	if(typeof event_data[id] !== 'undefined')
+	{
+		call_back(id);
+		return;
+	}
+	$.ajax({
+		url: "http://bits-apogee.org/2016/events/get_event/"+id+"/",
+		method: "GET",
+		success: function(data){
+			event_data[id] = data;
+			call_back(id);
+		}
+	});
+}
 </script>
 </body>
 </html>
