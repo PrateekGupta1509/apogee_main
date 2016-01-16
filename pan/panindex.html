@@ -33,11 +33,10 @@
 		{
 			z-index: 1;
 		    position: absolute;
-		    top: 0;
+		    bottom: 20px;
 		    right: 0;
-		    height: 100%;
-		    width: 50px;
-		    background: blue;
+		    height: auto;
+		    width: 80px;
 		}
 
 		.zoom-icon
@@ -58,9 +57,33 @@
 		{
 			position: relative;
 			height: 220px;
-			padding-top: 140px;
+			padding-top: 125px;
 
 		}
+
+    .abs_center
+    {
+      position: absolute;
+      top:0;
+      bottom: 0;
+      margin: auto;
+      left:0;
+      right: 0;
+    }
+    .ver_center
+    {
+      position: absolute;
+      top:0;
+      bottom: 0;
+      margin: auto;
+    }
+    .hor_center
+    {
+      position: absolute;
+      margin: auto;
+      left:0;
+      right: 0; 
+    }
 		.zoom-range
 		{
 			/*position: absolute;*/
@@ -102,7 +125,25 @@
 		input[type="range"]::-webkit-slider-thumb:active {
 		  box-shadow: 0px 0px 1px #3c6d59;
 		}
-
+    .pan-panel
+    {
+      position: relative;
+      height: 70px;
+      width: 70px;
+      background-color: white;
+      border-radius: 50%;
+      margin:20px 5px; 
+    }
+    .pan-icon
+    {
+      position: absolute;
+      display: inline-block;
+      padding: 5px;
+      line-height: 25px;
+      height: 25px;
+      width: 25px;
+      text-align:center;
+    }
 	</style>
 	<script type="text/javascript" src="jquery.min.js"></script>
 	<script type="text/javascript" src="svg-pan-zoom.min.js"></script>
@@ -2957,17 +2998,21 @@
 </svg>
 
 <div id="map_control">
+  
 	<!-- <div class="zoom-icon icon"></div> -->
 	<div class="zoom-panel" >
 		<div class="zoom-icon zoom-in" onclick="zoom_trig(0.2)">+</div>
 		<section class='zoom-range'>
-		  <input id="zoomslid" type='range' min="1.2" max="6" value="2.2" step="0.2" onchange="zoom_slider(value)" />
-	  	</section>
-  	  	<div class="zoom-icon zoom-out" onclick="zoom_trig(-0.2)">-</div>
-  	</div>  
-  	<div class="zoom-panel" >
-  		
-  	</div>
+		  <input id="zoomslid" type='range' min="1.2" max="6" value="2.2" step="0.2" oninput="zoom_slider(value)" />
+	 	</section>
+   	<div class="zoom-icon zoom-out" onclick="zoom_trig(-0.2)">-</div>
+  </div> 
+  <div class="pan-panel" >
+      <div class="pan-icon hor_center" style="top:0;">^</div>
+      <div class="pan-icon ver_center" style="left:0;"><</div>
+      <div class="pan-icon ver_center" style="right:0;">></div>
+      <div class="pan-icon hor_center" style="bottom:0;">v</div>
+  </div> 
 </div>
 
 
