@@ -3002,11 +3002,11 @@
   
 	<!-- <div class="zoom-icon icon"></div> -->
 	<div class="zoom-panel" >
-		<div class="zoom-icon zoom-in" onclick="zoom_trig(0.2)">+</div>
+		<div class="zoom-icon zoom-in" onmousedown="zoom_trig(0.2)" onmouseup="zoom_stop()">+</div>
 		<section class='zoom-range'>
 		  <input id="zoomslid" type='range' min="1.2" max="6" value="2.2" step="0.2" oninput="zoom_slider(value)" />
 	 	</section>
-   	<div class="zoom-icon zoom-out" onclick="zoom_trig(-0.2)">-</div>
+   	<div class="zoom-icon zoom-out" onmousedown="zoom_trig(-0.2)" onmouseup="zoom_stop()">-</div>
   </div> 
   <div class="pan-panel" >
       <div class="pan-icon hor_center" style="top:0;" onmousedown="pan_trig(0,50)" onmouseup="pan_stop()">^</div>
@@ -3085,12 +3085,24 @@ window.onload = function() {
 function zoom_slider(v) {
 	mapinit.zoom(v);
 }
+
+var zoomtrig=null;
 function zoom_trig(t)
-{
+{ 
 	var z=$('#zoomslid').val();
 	$('#zoomslid').val(parseFloat(z) + parseFloat(t));
 	zoom_slider((parseFloat(z) + parseFloat(t)));
+  zoomtrig = setInterval(
+    function(){var z=$('#zoomslid').val();
+    $('#zoomslid').val(parseFloat(z) + parseFloat(t));
+    zoom_slider((parseFloat(z) + parseFloat(t)));
+  },200);
 }
+function zoom_stop()
+{
+  clearInterval(zoomtrig);
+}
+
 var pantrig=null;
 function pan_trig(xin,yin)
 {
