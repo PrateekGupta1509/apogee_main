@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<meta charset="UTF-8">
 	<title>pan zoom</title>
 	<style type="text/css">
@@ -37,7 +38,6 @@
 		    right: 0;
 		    height: 100%;
 		    width: 50px;
-		    background: blue;
 		}
 
 		.zoom-icon
@@ -67,37 +67,40 @@
 			/*bottom: 20px;*/
 			/*padding-top: 130px;*/
 			transform: rotate(-90deg);
-			background-color: black;
 			height: 50px;	
 			padding-top: 14px;
 			/*width: 180px;*/
 		}
+        .zoom-but {
+
+        }
 		input[type="range"] {
 		  -webkit-appearance: none !important;
 		  width: 160px;
 		  height: 6px;
-		  background-color: #A3CD99;
-		  border: 1px solid #97c68b;
+		  background-color: #fff;
+		  /*border: 1px solid #eee ; */
 		  /*border-radius: 10px;*/
+          box-shadow: 0px 0px 2px #999;
 		  margin: auto;
 		  outline: none;
 		  transition: all 0.3s ease;
 		}
 		input[type="range"]:hover {
-		  background-color: #b2d5aa;
+		  box-shadow: 0px 0px 1px 1px #666;
 		}
 
 		input[type="range"]::-webkit-slider-thumb {
 		  -webkit-appearance: none !important;
 		  width: 20px;
 		  height: 20px;
-		  background-color: #579E81;
+		  background-color: #ddd;
 		  border-radius: 30px;
 		  box-shadow: 0px 0px 3px #3c6d59;
 		  transition: all 0.5s ease;
 		}
 		input[type="range"]::-webkit-slider-thumb:hover {
-		  background-color: #457d66;
+		  background-color: #ddd;
 		}
 		input[type="range"]::-webkit-slider-thumb:active {
 		  box-shadow: 0px 0px 1px #3c6d59;
@@ -2959,11 +2962,11 @@
 <div id="map_control">
 	<!-- <div class="zoom-icon icon"></div> -->
 	<div class="zoom-panel" >
-		<div class="zoom-icon zoom-in" onclick="zoom_trig(0.2)">+</div>
+		<div class="zoom-icon zoom-in" onclick="zoom_trig(0.2)"><i class="zoom-but fa fa-plus"></i></div>
 		<section class='zoom-range'>
 		  <input id="zoomslid" type='range' min="1.2" max="6" value="2.2" step="0.2" onchange="zoom_slider(value)" />
 	  	</section>
-  	  	<div class="zoom-icon zoom-out" onclick="zoom_trig(-0.2)">-</div>
+  	  	<div class="zoom-icon zoom-out" onclick="zoom_trig(-0.2)"><i class="zoom-but fa fa-minus"></i></div>
   	</div>  
   	<div class="zoom-panel" >
   		
