@@ -143,6 +143,7 @@
       height: 25px;
       width: 25px;
       text-align:center;
+      cursor: pointer;
     }
 	</style>
 	<script type="text/javascript" src="jquery.min.js"></script>
@@ -3008,10 +3009,10 @@
    	<div class="zoom-icon zoom-out" onclick="zoom_trig(-0.2)">-</div>
   </div> 
   <div class="pan-panel" >
-      <div class="pan-icon hor_center" style="top:0;">^</div>
-      <div class="pan-icon ver_center" style="left:0;"><</div>
-      <div class="pan-icon ver_center" style="right:0;">></div>
-      <div class="pan-icon hor_center" style="bottom:0;">v</div>
+      <div class="pan-icon hor_center" style="top:0;" onmousedown="pan_trig(0,50)" onmouseup="pan_stop()">^</div>
+      <div class="pan-icon ver_center" style="left:0;" onmousedown="pan_trig(50,0)" onmouseup="pan_stop()"><</div>
+      <div class="pan-icon ver_center" style="right:0;" onmousedown="pan_trig(-50,0)" onmouseup="pan_stop()">></div>
+      <div class="pan-icon hor_center" style="bottom:0;" onmousedown="pan_trig(0,-50)" onmouseup="pan_stop()">v</div>
   </div> 
 </div>
 
@@ -3079,7 +3080,7 @@ window.onload = function() {
 
         // mapinit.zoomAtPointBy(2, {x: (win_w/2), y: (win_h/2)});
         // panZoom.setBeforePan(beforePan)
-      };
+};
 
 function zoom_slider(v) {
 	mapinit.zoom(v);
@@ -3089,6 +3090,16 @@ function zoom_trig(t)
 	var z=$('#zoomslid').val();
 	$('#zoomslid').val(parseFloat(z) + parseFloat(t));
 	zoom_slider((parseFloat(z) + parseFloat(t)));
+}
+var pantrig=null;
+function pan_trig(xin,yin)
+{
+  mapinit.panBy({x: xin, y: yin});
+  pantrig = setInterval(function(){mapinit.panBy({x: xin, y: yin});},200);;
+}
+function pan_stop()
+{
+  clearInterval(pantrig);
 }
 </script>
 </body>
