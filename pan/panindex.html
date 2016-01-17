@@ -75,30 +75,66 @@
 		/*-----------------------NAV + PROFILE-ICONS-----------------------------*/
 		nav{
 			position: absolute;
-			left: -320px;
-			width: 300px;
+			left: -370px;
+			width: 350px;
 			height: 100%;
 			top: 0;
 			padding: 0;
 			margin: 0;
 			background: #fff;
-			z-index: 201;
+			z-index: 500;
 			box-shadow: 0px 10px 30px #000;
 
 		}
+        .sidebar-icon-box {
+            width: 50px;
+            text-align: center;
+            position: relative;
+            float: left;
+            color : #555;
+        }
+        .navtext {
+            padding-left: 17px;
+            position: relative;
+        }
 		.htile{
-			width: calc(100%);
-			height: 50px;
-			line-height: 50px;
-			/*background: #66cdaa;*/
+			position: relative;
+			float: left;
+			width: 100%;
+			padding: 2px 0px;
+            line-height: 50px;
+            font-size: 16px;
 			background: #fff;
+			font-weight: 400;
 			cursor: pointer;
-			/*font-family: 'Bree Serif', serif;*/
 			padding-left: 10px;
-			color: #404040;
+			color: #555;
+            border-bottom: 1px solid #fff;
+            border-top: 1px solid #fff;
 		} 
-		.htile:hover{
-			background: #66cdaa;
+        .htile:hover{
+			color: #222;
+            background-color: #fafafa;
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid #eee;
+		} 
+		.aplogo {
+			position: relative;
+			float: left;
+			width: 100%;
+			background-color: #4285F4 !important;
+			height: 170px;
+        }
+		.closeside {
+			position: absolute;
+			right: 10px;
+			top: 10px;
+			font-size: 20px;
+			color: rgba(255,255,255,0.5);
+			cursor: pointer;
+		}
+		.closeside:hover {
+			color: rgba(255,255,255,1);
 		}
 		#overlay{
 			height: 100%;
@@ -115,8 +151,7 @@
 			background: #fff;
 			top: 20px;
 			left: 25px;
-			padding: 10px;
-			width: 120px;
+			padding: 10px 20px;
 			position: absolute;
 			z-index: 202;
 			text-align: center;
@@ -125,7 +160,7 @@
 			font-size: 19px;
 			font-weight: 300;
 			line-height: 20px;
-			color: #888;
+			color: #555;
 			box-shadow: 0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
 		}
 		#burgernav:hover{
@@ -146,19 +181,12 @@
 		}
 		@-webkit-keyframes navanim2{0%{left: 300px;}
 		100%{left: 25px;}}
-		.navtext{
-			position: absolute;
-			left: 50px;
-		}       
 		#login{
 			right: 20px;
 			position: absolute;
-			/*width: 40px;*/
-
 			background: #fff;
 			top: 20px;
-			padding: 10px;
-			width: 230px;
+			padding: 10px 20px;
 			z-index: 202;
 			text-align: center;
 			cursor: pointer;
@@ -166,7 +194,7 @@
 			font-size: 19px;
 			font-weight: 300;
 			line-height: 20px;
-			color: #888;
+			color: #555;
 			box-shadow: 0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
 		}  
 		#login:hover{
@@ -266,7 +294,7 @@
 			line-height: 33px;
 			font-size: 18px;
 			margin-left: 8px;
-			color: #777;
+			color: #555;
 		}
 		.zoom-but:hover {
 			color: #333;
@@ -283,7 +311,7 @@
 			transition: all 0.3s ease;
 		}
 		input[type="range"]:hover {
-			box-shadow: 0px 0px 1px 1px #777;
+			box-shadow: 0px 0px 1px 1px #555;
 		}
 
 		input[type="range"]::-webkit-slider-thumb {
@@ -326,7 +354,7 @@
 			height: 25px;
 			width: 25px;
 			text-align:center;
-			color: #777;
+			color: #555;
 			cursor: pointer;
 		}
 		.pan-icon:hover
@@ -345,7 +373,7 @@
 		.fbb {
 			position: relative;
 			float: left;
-			margin-bottom: 8px;
+			margin-bottom: 12px;
 		}
 
 		.twb {
@@ -400,24 +428,47 @@
 		<i class="fa fa-bars" style="font-size: 25px; vertical-align:text-top"></i>&nbsp;&nbsp;&nbsp;MENU
 	</div>
 	<nav>
-		<div class="htile" style="height:70px; background:#4099ff; line-height:70px; cursor: auto;
-		text-align:center; font-size:30px; color:#191919;">APOGEE'16</div>
-		<div class="htile"><i class="fa fa-info sideicons"></i><span class="navtext">ABOUT</span></div>
-		<div class="htile"><i class="fa fa-puzzle-piece sideicons"></i><span class="navtext">EVENTS</span></div>
-		<div class="htile"><i class="fa fa-archive sideicons"></i><span class="navtext">ARCHIVES</span></div>
-		<div class="htile"><i class="fa fa-dollar sideicons"></i><span class="navtext">SPONSORS</span></div>
-		<div class="htile"><i class="fa fa-star sideicons"></i><span class="navtext">GUEST LECTURES</span></div>
-		<div class="htile"><i class="fa fa-cogs sideicons"></i><span class="navtext">WORKSHOPS</span></div>   
-		<div class="htile"><i class="fa fa-fax sideicons"></i><span class="navtext">CONTACTS</span></div>
+		<div class="aplogo"><i class="fa fa-close closeside"></i></div>
+		
+		<div class="htile">
+			<div class="sidebar-icon-box"><i class="fa fa-info sideicons"></i></div>
+			<span class="navtext">ABOUT</span>
+		</div>
+		<div class="htile">
+		<div class="sidebar-icon-box"><i class="fa fa-puzzle-piece sideicons"></i></div>
+			<span class="navtext">EVENTS</span>
+		</div>
+		<div class="htile">
+		<div class="sidebar-icon-box"><i class="fa fa-archive sideicons"></i></div>
+			<span class="navtext">ARCHIVES</span>
+		</div>
+		<div class="htile">
+		<div class="sidebar-icon-box"><i class="fa fa-dollar sideicons"></i></div>
+			<span class="navtext">SPONSORS</span>
+		</div>
+		<div class="htile">
+		<div class="sidebar-icon-box"><i class="fa fa-star sideicons"></i></div>
+			<span class="navtext">GUEST LECTURES</span>
+		</div>
+		<div class="htile">
+		<div class="sidebar-icon-box"><i class="fa fa-cogs sideicons"></i></div>
+			<span class="navtext">WORKSHOPS</span>
+		</div>   
+		<div class="htile">
+		<div class="sidebar-icon-box"><i class="fa fa-fax sideicons"></i></div>
+			<span class="navtext">CONTACTS</span>
+		</div>
 	</nav>
 	<div id="overlay"></div>
 	<div id="login">
-		<i class="fa fa-sign-in" style="font-size:25px; vertical-align: text-top"></i>
-		<span class="login_reg">&nbsp;&nbsp;LOGIN &bullet; REGISTER</span>
+		<i class="fa fa-user" style="font-size:25px; vertical-align: text-top"></i>
+		<span class="login_reg">&nbsp;&nbsp;LOGIN<span style="color : #000; margin: 0px 10px">|</span>REGISTER</span>
 	</div>
 
 
 	<div id="home">
+
+
 		<!-- <object type="image/svg+xml" data="map.svg" id="map">Your browser does not support SVG</object>	 -->
 		<svg id="map" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100%" height="100%" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 6400 3600" xmlns:xlink="http://www.w3.org/1999/xlink">
 			<defs>
@@ -6239,34 +6290,31 @@
 				<div class="pan-icon hor_center" style="bottom:0;" onmousedown="pan_trig(0,-50)" onmouseup="pan_stop()"><i class="fa fa-chevron-down"></i></div>
 			</div> 
 		</div>
+
+
+
 	</div>
 
 	<div id="social_updates">
-
+<!--
 		<div class="fbb fb-like" data-href="https://www.facebook.com/bitsapogee" data-layout="button_count" data-action="like" data-width="100" data-show-faces="false" data-share="true"></div>
 
 		<a class="twb twitter-follow-button" href="https://twitter.com/bitsapogee">Follow @BITSApogee</a>
+	-->
+
+</div>
 
 
-	</div>
-
-
-	<div class="blah" data-name="Hello DVM!" style="display:none;top:40%;left: 40%;"></div>
-	<div class="blah" data-name="Hello Prateek!" style="display:none;top:60%;left: 60%;"></div>
-	<div id="building_info" style="display:none;" data-name=""><img src="mappointer.svg" style="height:60px;"><div>HELLO</div></div>
+<div class="blah" data-name="Hello DVM!" style="display:none;top:40%;left: 40%;"></div>
+<div class="blah" data-name="Hello Prateek!" style="display:none;top:60%;left: 60%;"></div>
+<div id="building_info" style="display:none;" data-name=""><img src="mappointer.svg" style="height:60px;"><div>HELLO</div></div>
 </div>
 
 <script>
 	var mapinit;
 	window.onload = function() {
 		var beforePan, win_h = $('body').height(),win_w=$('body').width(),svg_w=16;svg_h=9,initzoom=1.5;
-		// if(win_w>win_h)
-		// 	{
 
-		// 		$('#map').css({'width':win_w*initzoom,'height':(svg_h*win_w*initzoom)/svg_w});
-		// 	}	
-		// else
-		// 	$('#map').css({'height':win_h});
 		beforePan = function(oldPan, newPan){
 			var stopHorizontal = false
 			, stopVertical = false
@@ -6289,114 +6337,104 @@
 				$('#zoomslid').val(parseFloat(mapinit.getZoom()));
 			}
 
-		// Expose to window namespace for testing purposes
-		mapinit = svgPanZoom(document.getElementById('map'), {
-			viewportSelector: '.svg-pan-zoom_viewport',
-			panEnabled: true,
-			controlIconsEnabled: false,
-			zoomEnabled: true,
-			dblClickZoomEnabled: false,
-			mouseWheelZoomEnabled: true,
-			preventMouseEventsDefault: true,
-			zoomScaleSensitivity: 0.2,
-			minZoom: 1.2,
-			maxZoom: 6,
-			fit: false,
-			contain: true,
-			center: true,
-			refreshRate: 'auto',
-			beforeZoom: function(){},
-			onZoom: onZoom,
-			beforePan: beforePan,
-			onPan: function(){},
+
+			mapinit = svgPanZoom(document.getElementById('map'), {
+				viewportSelector: '.svg-pan-zoom_viewport',
+				panEnabled: true,
+				controlIconsEnabled: false,
+				zoomEnabled: true,
+				dblClickZoomEnabled: false,
+				mouseWheelZoomEnabled: true,
+				preventMouseEventsDefault: true,
+				zoomScaleSensitivity: 0.2,
+				minZoom: 1.2,
+				maxZoom: 6,
+				fit: false,
+				contain: true,
+				center: true,
+				refreshRate: 'auto',
+				beforeZoom: function(){},
+				onZoom: onZoom,
+				beforePan: beforePan,
+				onPan: function(){},
 		  // customEventsHandler: {},
 		  eventsListenerElement: null,
 		});
-		mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
-		mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
-		mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+			mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+			mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+			mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
 
-		// mapinit.zoomAtPointBy(2, {x: (win_w/2), y: (win_h/2)});
-		// panZoom.setBeforePan(beforePan)
-	};
+		};
 
-	function zoom_slider(v) {
-		mapinit.zoom(v);
-	}
+		function zoom_slider(v) {
+			mapinit.zoom(v);
+		}
 
-	var zoomtrig=null;
-	function zoom_trig(t)
-	{ 
-		var z=$('#zoomslid').val();
-		$('#zoomslid').val(parseFloat(z) + parseFloat(t));
-		zoom_slider((parseFloat(z) + parseFloat(t)));
-		zoomtrig = setInterval(
-			function(){var z=$('#zoomslid').val();
+		var zoomtrig=null;
+		function zoom_trig(t)
+		{ 
+			var z=$('#zoomslid').val();
 			$('#zoomslid').val(parseFloat(z) + parseFloat(t));
 			zoom_slider((parseFloat(z) + parseFloat(t)));
-		},200);
-	}
-	function zoom_stop()
-	{
-		clearInterval(zoomtrig);
-	}
+			zoomtrig = setInterval(
+				function(){var z=$('#zoomslid').val();
+				$('#zoomslid').val(parseFloat(z) + parseFloat(t));
+				zoom_slider((parseFloat(z) + parseFloat(t)));
+			},200);
+		}
+		function zoom_stop()
+		{
+			clearInterval(zoomtrig);
+		}
 
-	var pantrig=null;
-	function pan_trig(xin,yin)
-	{
-		mapinit.panBy({x: xin, y: yin});
-		pantrig = setInterval(function(){mapinit.panBy({x: xin, y: yin});},200);;
-	}
-	function pan_stop()
-	{
-		clearInterval(pantrig);
-	}
-</script>
+		var pantrig=null;
+		function pan_trig(xin,yin)
+		{
+			mapinit.panBy({x: xin, y: yin});
+			pantrig = setInterval(function(){mapinit.panBy({x: xin, y: yin});},200);;
+		}
+		function pan_stop()
+		{
+			clearInterval(pantrig);
+		}
+	</script>
 
-<script type="text/javascript">
-	
-	$(function() {
-		var moveLeft = 10;
-		var moveDown = -50;
-		$('.blah').hover(function(e) {
-			$('#building_info>div').html($(this).data('name'));
-			$('#building_info').fadeIn(100).css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
-		}, function() {
-			$('#building_info>div').html('');
-			$('#building_info').fadeOut(100);
+	<script type="text/javascript">
+
+		$(function() {
+			var moveLeft = 10;
+			var moveDown = -50;
+			$('.blah').hover(function(e) {
+				$('#building_info>div').html($(this).data('name'));
+				$('#building_info').fadeIn(100).css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+			}, function() {
+				$('#building_info>div').html('');
+				$('#building_info').fadeOut(100);
+			});
+
+			$('.blah').mousemove(function(e) {
+				$("#building_info").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		$('#overlay').click(function(){
+			$(".closeside").click();
 		});
 
-		$('.blah').mousemove(function(e) {
-			$("#building_info").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
-		});
-	});
-</script>
-<script type="text/javascript">
-	$('#overlay').click(function(){
-		$("#burgernav").click();
-	});
-	var menu_stat=1;
-
-	$("#burgernav").click(function(){
-		if(menu_stat==1){
+		$("#burgernav").click(function(){
 			$('nav').animate({left:"0px"},300,"linear");
 			$("#overlay").fadeIn(400);
-			$("#burgernav").removeClass("burgeranim2");
-			$("#burgernav").addClass("burgeranim");
-			menu_stat=2;
-		}
-		else if(menu_stat==2){
-			$('nav').animate({left:"-320px"},300,"linear");
+		});
+
+		$(".closeside").click(function() {
+			$('nav').animate({left:"-370px"},300,"linear");
 			$("#overlay").fadeOut(400);
-			$("#burgernav").removeClass("burgeranim");
-			$("#burgernav").addClass("burgeranim2");
-			menu_stat=1;
-		}
-	});
-</script>
+		});
+	</script>
 
-<div id="fb-root"></div>
-
+	<div id="fb-root"></div>
+<!--
 <script>
 	(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
@@ -6422,6 +6460,6 @@
 	}(document,"script","twitter-wjs");
 
 </script>
-
+-->
 </body>
 </html>
