@@ -223,7 +223,7 @@
 		{
 			z-index: 1;
 			position: absolute;
-			bottom: 5px;
+			bottom: 25px;
 			right: 20px;
 			height: auto;
 			width: 80px;
@@ -279,7 +279,23 @@
 			margin: auto;
 			left:0;
 			right: 0; 
+
 		}
+		.zoompanreset-icon
+		{
+			margin: 15px auto;
+			position: relative;
+			height: 30px;
+			width: 30px;
+			color: #777;
+			background-color: #fff;
+			cursor: pointer;
+			box-shadow: 0px 1px 4px rgba(0,0,0,0.3);
+			border-radius: 10000px;
+			z-index: 10;
+
+		}
+		.zoompanreset-icon:hover {color: #333;}
 		.zoom-range
 		{
 			/*position: absolute;*/
@@ -291,9 +307,10 @@
 			/*width: 180px;*/
 		}
 		.zoom-but {
-			line-height: 33px;
 			font-size: 18px;
-			margin-left: 8px;
+    		width: 30px;
+    		text-align: center;
+    		line-height: 32px;
 			color: #555;
 		}
 		.zoom-but:hover {
@@ -337,7 +354,7 @@
 			width: 70px;
 			background-color: #fff;
 			border-radius: 50%;
-			margin:20px 5px; 
+			margin:0px 5px; 
 			box-shadow: 0px 1px 4px rgba(0,0,0,0.3);
 
 			-webkit-user-select: none;
@@ -6273,16 +6290,18 @@
 			</g>
 		</svg>
 
-		
-
 		<div id="map_control">
 			<div class="zoom-panel" >
-				<div class="zoom-icon zoom-in"  onmousedown="zoom_trig(0.2)" onmouseup="zoom_stop()"><i class="zoom-but fa fa-plus"></i></div>
+				<div class="zoom-icon zoom-in"  onmousedown="zoom_trig(0.2)" onmouseup="zoom_stop()"><i class="zoom-but fa fa-plus" ></i></div>
 				<section class='zoom-range'>
 					<input id="zoomslid" type='range' min="1.2" max="6" value="2.2" step="0.2" oninput="zoom_slider(value)" />
 				</section>
 				<div class="zoom-icon zoom-out" onmousedown="zoom_trig(-0.2)" onmouseup="zoom_stop()"><i class="zoom-but fa fa-minus"></i></div>
 			</div> 
+			<div class="zoompanreset-icon zoom-icon hor_center" onclick="zoom_pan_reset()">
+				<i class="zoom-but fa fa-dot-circle-o"></i>
+			</div>
+			
 			<div class="pan-panel" >
 				<div class="pan-icon hor_center" style="top:-2px;" onmousedown="pan_trig(0,50)" onmouseup="pan_stop()"><i class="fa fa-chevron-up"></i></div>
 				<div class="pan-icon ver_center" style="left:0;" onmousedown="pan_trig(50,0)" onmouseup="pan_stop()"><i class="fa fa-chevron-left"></i></div>
@@ -6291,29 +6310,26 @@
 			</div> 
 		</div>
 
+		<div id="social_updates">
+		<!--
+			<div class="fbb fb-like" data-href="https://www.facebook.com/bitsapogee" data-layout="button_count" data-action="like" data-width="100" data-show-faces="false" data-share="true"></div>
+			<a class="twb twitter-follow-button" href="https://twitter.com/bitsapogee">Follow @BITSApogee</a>
+		-->
+		</div>
 
-
+		<div id="building_info" style="display:none;" data-name=""><img src="mappointer.svg" style="height:60px;"><div>HELLO</div></div>
+	
 	</div>
 
-	<div id="social_updates">
-<!--
-		<div class="fbb fb-like" data-href="https://www.facebook.com/bitsapogee" data-layout="button_count" data-action="like" data-width="100" data-show-faces="false" data-share="true"></div>
-
-		<a class="twb twitter-follow-button" href="https://twitter.com/bitsapogee">Follow @BITSApogee</a>
-	-->
-
-</div>
 
 
-<div class="blah" data-name="Hello DVM!" style="display:none;top:40%;left: 40%;"></div>
-<div class="blah" data-name="Hello Prateek!" style="display:none;top:60%;left: 60%;"></div>
-<div id="building_info" style="display:none;" data-name=""><img src="mappointer.svg" style="height:60px;"><div>HELLO</div></div>
-</div>
+	<div class="blah" data-name="Hello DVM!" style="display:none;top:40%;left: 40%;"></div>
+	<div class="blah" data-name="Hello Prateek!" style="display:none;top:60%;left: 60%;"></div>
 
 <script>
-	var mapinit;
+	var mapinit,win_h = $('body').height(),win_w=$('body').width();
 	window.onload = function() {
-		var beforePan, win_h = $('body').height(),win_w=$('body').width(),svg_w=16;svg_h=9,initzoom=1.5;
+		var beforePan,svg_w=16;svg_h=9,initzoom=1.5;
 
 		beforePan = function(oldPan, newPan){
 			var stopHorizontal = false
@@ -6360,15 +6376,33 @@
 		  // customEventsHandler: {},
 		  eventsListenerElement: null,
 		});
-			mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
-			mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
-			mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		// mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		// mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		// mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		$('#zoomslid').val('2.2');
+		zoom_slider(2.2);
+		mapinit.panBy({x: -(win_w/2)-200, y: -(win_h/2)-100 });
+		// mapinit.zoomAtPointBy(2, {x: (win_w/2), y: (win_h/2)});
+		// panZoom.setBeforePan(beforePan)
+	};
 
-		};
+	function zoom_pan_reset()
+	{
 
-		function zoom_slider(v) {
-			mapinit.zoom(v);
-		}
+		// mapinit.resetZoom();
+		
+		// mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		// mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		// mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		$('#zoomslid').val('2.2');
+		zoom_slider(2.2);
+		mapinit.resetPan();
+		mapinit.panBy({x: -(win_w/2)-200, y: -(win_h/2)-100 });
+	}
+
+	function zoom_slider(v) {
+		mapinit.zoom(v);
+	}
 
 		var zoomtrig=null;
 		function zoom_trig(t)
@@ -6435,31 +6469,31 @@
 
 	<div id="fb-root"></div>
 <!--
-<script>
-	(function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id))
-			return;
-		js = d.createElement(s);
-		js.id = id;
-		js.src = "http://connect.facebook.net/en_US/all.js#xfbml=1";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));	
-</script>
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "http://connect.facebook.net/en_US/all.js#xfbml=1";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));	
+	</script>
 
-<script>
-	//TWITTER 
-	
-	!function(d,s,id){
-		var js,fjs=d.getElementsByTagName(s)[0];
-		if(!d.getElementById(id)){
-			js=d.createElement(s);
-			js.id=id;js.src="http://platform.twitter.com/widgets.js";
-			fjs.parentNode.insertBefore(js,fjs);
-		}
-	}(document,"script","twitter-wjs");
+	<script>
+		//TWITTER 
+		
+		!function(d,s,id){
+			var js,fjs=d.getElementsByTagName(s)[0];
+			if(!d.getElementById(id)){
+				js=d.createElement(s);
+				js.id=id;js.src="http://platform.twitter.com/widgets.js";
+				fjs.parentNode.insertBefore(js,fjs);
+			}
+		}(document,"script","twitter-wjs");
 
-</script>
+	</script>
 -->
 </body>
 </html>
