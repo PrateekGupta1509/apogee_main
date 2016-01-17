@@ -683,12 +683,10 @@
 		});
 
 		function fireOverlay() {
-			$("#map").css({"-webkit-filter" : "blur(2px)"}, 400);
 			$("#overlay").fadeIn(400);
 		}
 
 		function killOverlay() {
-			$("#map").css("-webkit-filter", "blur(0px)");
 			$("#overlay").fadeOut(400);
 		}
 
