@@ -251,7 +251,21 @@
 			margin: auto;
 			left:0;
 			right: 0; 
+
 		}
+		.zoompanreset-icon
+		{
+			margin: 20px auto;
+			position: relative;
+			height: 30px;
+			width: 30px;
+			border-radius: 50%;
+			box-shadow: 0px 1px 4px rgba(0,0,0,0.3);
+			color: #777;
+			background:  #fff;
+
+		}
+		.zoompanreset-icon:hover {color: #333;}
 		.zoom-range
 		{
 			/*position: absolute;*/
@@ -6222,9 +6236,8 @@
 			</g>
 		</svg>
 
-		
-
 		<div id="map_control">
+			<div class="zoompanreset-icon hor_center" onclick="zoom_pan_reset()"><i class="fa fa-stop-circle-o"></i></div>
 			<div class="zoom-panel" >
 				<div class="zoom-icon zoom-in"  onmousedown="zoom_trig(0.2)" onmouseup="zoom_stop()"><i class="zoom-but fa fa-plus"></i></div>
 				<section class='zoom-range'>
@@ -6239,27 +6252,26 @@
 				<div class="pan-icon hor_center" style="bottom:0;" onmousedown="pan_trig(0,-50)" onmouseup="pan_stop()"><i class="fa fa-chevron-down"></i></div>
 			</div> 
 		</div>
+
+		<div id="social_updates">
+			<div class="fbb fb-like" data-href="https://www.facebook.com/bitsapogee" data-layout="button_count" data-action="like" data-width="100" data-show-faces="false" data-share="true"></div>
+			<a class="twb twitter-follow-button" href="https://twitter.com/bitsapogee">Follow @BITSApogee</a>
+		</div>
+
+		<div id="building_info" style="display:none;" data-name=""><img src="mappointer.svg" style="height:60px;"><div>HELLO</div></div>
+	
 	</div>
 
-	<div id="social_updates">
-
-		<div class="fbb fb-like" data-href="https://www.facebook.com/bitsapogee" data-layout="button_count" data-action="like" data-width="100" data-show-faces="false" data-share="true"></div>
-
-		<a class="twb twitter-follow-button" href="https://twitter.com/bitsapogee">Follow @BITSApogee</a>
-
-
-	</div>
 
 
 	<div class="blah" data-name="Hello DVM!" style="display:none;top:40%;left: 40%;"></div>
 	<div class="blah" data-name="Hello Prateek!" style="display:none;top:60%;left: 60%;"></div>
-	<div id="building_info" style="display:none;" data-name=""><img src="mappointer.svg" style="height:60px;"><div>HELLO</div></div>
-</div>
+
 
 <script>
-	var mapinit;
+	var mapinit,win_h = $('body').height(),win_w=$('body').width();
 	window.onload = function() {
-		var beforePan, win_h = $('body').height(),win_w=$('body').width(),svg_w=16;svg_h=9,initzoom=1.5;
+		var beforePan,svg_w=16;svg_h=9,initzoom=1.5;
 		// if(win_w>win_h)
 		// 	{
 
@@ -6312,13 +6324,29 @@
 		  // customEventsHandler: {},
 		  eventsListenerElement: null,
 		});
-		mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
-		mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
-		mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
-
+		// mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		// mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		// mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		$('#zoomslid').val('2.2');
+		zoom_slider(2.2);
+		mapinit.panBy({x: -(win_w/2)-200, y: -(win_h/2)-100 });
 		// mapinit.zoomAtPointBy(2, {x: (win_w/2), y: (win_h/2)});
 		// panZoom.setBeforePan(beforePan)
 	};
+
+	function zoom_pan_reset()
+	{
+
+		// mapinit.resetZoom();
+		
+		// mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		// mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		// mapinit.zoomAtPointBy(1.3, {x: 5000, y: 500});
+		$('#zoomslid').val('2.2');
+		zoom_slider(2.2);
+		mapinit.resetPan();
+		mapinit.panBy({x: -(win_w/2)-200, y: -(win_h/2)-100 });
+	}
 
 	function zoom_slider(v) {
 		mapinit.zoom(v);
