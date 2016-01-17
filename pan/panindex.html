@@ -300,16 +300,17 @@
 		#building_info>div
 		{
 			display: inline-block;
-			background: #454545;
+			background:  #f0f0d7;
 			border-top-left-radius: 2px;
 			border-top-right-radius: 3px;
 			border-bottom-right-radius: 3px; 
-			color: #eee;
+			color: #555;
 			height: 40px;
 			line-height: 40px;
 			font-size: 20px;
 			padding: 0 10px;
 			top:0;
+			font-weight: bold;
 			vertical-align: top;
 			position: relative;
 			/*left:30px;*/
@@ -6167,8 +6168,8 @@
 				<div class="pan-icon hor_center" style="bottom:0;" onmousedown="pan_trig(0,-50)" onmouseup="pan_stop()"><i class="fa fa-chevron-down"></i></div>
 			</div> 
 		</div>
-		<div class="blah" data-name="hello dvm!" style="top:40%;left: 40%;"></div>
-		<div class="blah" data-name="hello prateek!" style="top:60%;left: 60%;"></div>
+		<div class="blah" data-name="Hello DVM!" style="top:40%;left: 40%;"></div>
+		<div class="blah" data-name="Hello Prateek!" style="top:60%;left: 60%;"></div>
 		<div id="building_info" data-name=""><img src="mappointer.svg" style="height:60px;"><div>HELLO</div></div>
 	</div>
 	<script>
@@ -6269,10 +6270,10 @@
 </script>
 
 <script type="text/javascript">
-	$(function() {
+
+$(function() {
   var moveLeft = 10;
   var moveDown = -50;
-
   $('.blah').hover(function(e) {
   	$('#building_info>div').html($(this).data('name'));
     $('#building_info').fadeIn(100).css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
@@ -6284,37 +6285,7 @@
   $('.blah').mousemove(function(e) {
     $("#building_info").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
   });
-
 });
-
-	// var onbuild = false,onnametag=false;
-	// $('.blah').mouseover(function(e){
-	// 	// if($('#building_info').data('name')=="")
-	// 	// 	$('#building_info').data('name',$(this).data('name'));
-	// 	if(!onbuild && !onnametag)
-	// 		$('#building_info').html($(this).data('name')).css({'top':e.pageY,'left':e.pageX,'display':'block'});
-	// 	onbuild=true;
-	// 	console.log(onbuild,onnametag);
-	// });
-
-	// $('#building_info').mouseover(function(e){
-	// 	onnametag=true;
-	// 	console.log(onbuild,onnametag);
-	// });
-	// $('.blah').mouseout(function(){
-	// 	onbuild=false;
-	// 	if(!onbuild && !onnametag)
-	// 		$('#building_info').html('').css({'display':'none'});
-	// 	console.log(onbuild,onnametag);
-	// });
-
-	// $('#building_info').mouseout(function(){
-	// 	onnametag=false;
-	// 	if(!onbuild && !onnametag)
-	// 		$('#building_info').html('').css({'display':'none'});
-	// 	console.log(onbuild,onnametag);
-	// });
-
 </script>
 <script type="text/javascript">
 	$('#overlay').click(function(){
