@@ -550,10 +550,10 @@
 					<input type="number" id="userphone_r" required><br>
 					<label for="usergender_r">Gender</label>
 		        	<span id="usergender_r">
-						<label for="male">Male</label>
 						<input type="radio" name="usergender_r" id="reg-male" value="M" checked>
-						<label for="female">Female</label>
+						<label for="reg-male">Male</label>
 						<input type="radio" name="usergender_r" id="reg-female" value="F">
+						<label for="reg-female">Female</label>
 					</span><br>
 					<label for="useremail_r">E-Mail</label>
 					<input type="email" id="useremail_r" required><br>
@@ -778,12 +778,12 @@
 								'email_id':$('#useremail_r').val(),
 							};
 			console.log(reg_data);		
-			if( (test_email.test(reg_data.email_id)) && (test_phone.test(reg_data.phone)) )
+			if( (test_email.test(reg_data.email_id)) && (test_phone.test(reg_data.phone_one)) )
 			{
 				$('#submit_l').prop('disabled', true);
 				$('#submit_r').prop('disabled', true);
 				$.ajax({
-					url:'http://bits-apogee.org/api/reg/',
+					url:'http://bits-apogee.org/2016/api/register/',
 					method:"POST",
 					crossDomain: true,
 					datatype: 'jsonp',
