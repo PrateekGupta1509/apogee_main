@@ -21,7 +21,7 @@ var disp,lh;
 $(window).load(function(){
 	disp = $('#event_prev').width();
 	lh = parseInt($('.event_cont').css('line-height'));
-	// summaryGet();
+	summaryGet();
 	$('#event_top').click(function(){
 		prev_eve();
 	});
