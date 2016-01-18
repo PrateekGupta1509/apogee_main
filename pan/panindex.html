@@ -46,6 +46,7 @@
 			left: 0;
 			overflow: hidden;
 			font-family: 'Lato';
+			background-color: #333;
 		}
 		*{
 			box-sizing:border-box;
@@ -143,14 +144,13 @@
 			height: 100%;
 			width: calc(100%);
 			display: none;
-			background: rgba(0,0,0,0.7);
+			background: rgba(1,1,1,0.6);
 			position: absolute;
 			top: 0;
 			left: 0px;
 			z-index: 20000;
 			box-shadow: 0px 10px 50px #333 inset;
 		}
-
 		#burgernav{
 			background: #fafafa;
 			top: 20px;
@@ -222,6 +222,7 @@
 			left: 0;
 			height: 100%;
 			width: 100%;
+			background: url(grid.svg) repeat;
 		}
 
 
@@ -486,10 +487,7 @@
 		</div>
 	</nav>
 	<div id="overlay"></div>
-	<div id="login">
-		<i class="fa fa-user" style="font-size:25px; vertical-align: text-top"></i>
-		<span class="login_reg">&nbsp;&nbsp;LOGIN<span style="color : #000; margin: 0px 10px">|</span>REGISTER</span>
-	</div>
+	
 
 
 	<div id="home">
@@ -516,12 +514,52 @@
 			</div> 
 		</div>
 
+		<div id="building_info" style="display:none;" data-name=""><img src="mappointer.svg" style="height:60px;"><div>HELLO</div></div>
+		
 		<div id="social_updates">
 			<div class="fbb fb-like" data-href="https://www.facebook.com/bitsapogee" data-layout="button_count" data-action="like" data-width="100" data-show-faces="false" data-share="true"></div>
 			<a class="twb twitter-follow-button" href="https://twitter.com/bitsapogee">Follow @BITSApogee</a>
 		</div>
+		
+		<div id="login">
+			<i class="fa fa-user" style="font-size:25px; vertical-align: text-top"></i>
+			<span class="login_reg">&nbsp;&nbsp;LOGIN<span style="color : #000; margin: 0px 10px">|</span>REGISTER</span>
+		</div>
+		
+		<div id="login-reg-box" class="abs_center" style="height:60%;width:80%;background:white;color:black;">
+			<div id="login-box" style="display:inline-block;width:50%;vertical-align:middle;">
+				<form  id="login-form">
+					<label for="useremail_l">E-Mail</label>
+					<input type="email" id="useremail_l" required><br>
+					<label for="userpassword_l">Password</label>
+					<input type="password" id="userpassword_l" required><br>
+					<div class="error_box"></div>
+					<button type="submit_l">SUBMIT</button>
+				</form>
+			</div>
+			<div id="reg-box" style="display:inline-block;vertical-align:middle;">
+				<form id="reg-form">
+					<label for="username_r">Name</label>
+					<input type="text" id="username_r" required><br>
+					<label for="usercollege_r">College</label>
+					<input type="text" id="usercollege_r" required><br>
+					<label for="userphone_r">Phone Number</label>
+					<input type="number" id="userphone_r" required><br>
+					<label for="usergender_r">Gender</label>
+		        	<span id="usergender_r">
+						<label for="male">Male</label>
+						<input type="radio" name="usergender_r" id="reg-male" value="M" checked>
+						<label for="female">Female</label>
+						<input type="radio" name="usergender_r" id="reg-female" value="F">
+					</span><br>
+					<label for="useremail_r">E-Mail</label>
+					<input type="email" id="useremail_r" required><br>
+					<div class="error_box"></div>
+					<button type="submit_r">SUBMIT</button>
+				</form>	
+			</div>
+		</div>
 
-		<div id="building_info" style="display:none;" data-name=""><img src="mappointer.svg" style="height:60px;"><div>HELLO</div></div>
 	
 	</div>
 
@@ -686,7 +724,78 @@
 		function killOverlay() {
 			$("#overlay").fadeOut(400);
 		}
+	</script>
 
+	<!-- ********************LOGIN/REGISTER API***************************** -->
+
+	<script type="text/javascript">
+		$('#login-form').submit(function(e){
+			e.preventDefault();
+			$('#login-form .error_box').html('').fadeOut();
+			$('#submit_l').prop('disabled', true);
+			$('#submit_r').prop('disabled', true);
+			var login_data = {
+								'useremail_l':$('#useremail_l').val(),
+								'userpassword_l':$('#userpassword_l').val()
+							};
+			console.log(login_data);
+			$.ajax({
+				url:'http://bits-apogee.org/api/login/',
+				method:'POST',
+	            crossDomain: true,
+				data:login_data,
+				datatype: 'jsonp',
+				success:function(response){
+					console.log(response);	
+					if(response.status)
+					{
+
+					}	
+					else
+					{
+						$('#login-form .error_box').html(error).fadeIn();
+						$('#submit_l').prop('disabled',false);
+						$('#submit_r').prop('disabled',false);
+					}
+				}
+			});
+		});
+
+		$('#reg-form').submit(function(e){
+			e.preventDefault();
+			var error="Incorrect E-mail or Phone number.";
+			var test_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+			var test_phone = /^([0-9]{10})$/i;
+
+			var reg_data = {
+								'name':$('#username_r').val(),
+								'college':$('#usercollege_r').val(),
+								'phone_one':$('#userphone_r').val(),
+								'gender':$('#usergender_r > input:checked').val(),
+								'email_id':$('#useremail_r').val(),
+							};
+			console.log(reg_data);		
+			if( (test_email.test(reg_data.email_id)) && (test_phone.test(reg_data.phone)) )
+			{
+				$('#submit_l').prop('disabled', true);
+				$('#submit_r').prop('disabled', true);
+				$.ajax({
+					url:'http://bits-apogee.org/api/reg/',
+					method:"POST",
+					crossDomain: true,
+					datatype: 'jsonp',
+					data:reg_data,
+					success:function(response){
+						console.log(response);		
+					}
+				});
+			}
+			else
+			{
+				$('#reg-form .error_box').html(error).fadeIn();
+			}
+
+		});
 	</script>
 
 	<div id="fb-root"></div>
