@@ -745,7 +745,9 @@
 			$.ajax({
 				url:'http://bits-apogee.org/api/login/',
 				method:'POST',
+	            crossDomain: true,
 				data:login_data,
+				datatype: 'jsonp',
 				success:function(response){
 					console.log(response);	
 					if(response.status)
@@ -783,6 +785,8 @@
 				$.ajax({
 					url:'http://bits-apogee.org/api/reg/',
 					method:"POST",
+					crossDomain: true,
+					datatype: 'jsonp',
 					data:reg_data,
 					success:function(response){
 						console.log(response);		
