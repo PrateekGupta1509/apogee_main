@@ -531,31 +531,35 @@
 		
 		<div id="login-reg-box" class="abs_center" style="height:60%;width:80%;background:white;color:black;">
 			<div id="login-box" style="display:inline-block;width:50%;vertical-align:middle;">
-				<form>
+				<form  id="login-form">
 					<label for="useremail_l">E-Mail</label>
-					<input type="text" id="useremail_l" required><br>
+					<input type="email" id="useremail_l" required><br>
 					<label for="userpassword_l">Password</label>
 					<input type="password" id="userpassword_l" required><br>
+					<div class="error_box"></div>
 					<button type="submit_l">SUBMIT</button>
 				</form>
 			</div>
 			<div id="reg-box" style="display:inline-block;vertical-align:middle;">
-				<label for="username_r">Name</label>
-				<input type="text" id="username_r" required><br>
-				<label for="usercollege_r">College</label>
-				<input type="text" id="usercollege_r" required><br>
-				<label for="userphone_r">Phone Number</label>
-				<input type="number" id="userphone_r" required><br>
-				<label for="usergender_r">Gender</label>
-	        	<span id="usergender_r">
-					<label for="male">Male</label>
-					<input type="radio" name="usergender_r" id="reg-male" value="male">
-					<label for="female">Female</label>
-					<input type="radio" name="usergender_r" id="reg-female" value="female">
-				</span><br>
-				<label for="useremail_r">E-Mail</label>
-				<input type="email" id="useremail_r" required><br>
-				<button type="submit_r">SUBMIT</button>
+				<form id="reg-form">
+					<label for="username_r">Name</label>
+					<input type="text" id="username_r" required><br>
+					<label for="usercollege_r">College</label>
+					<input type="text" id="usercollege_r" required><br>
+					<label for="userphone_r">Phone Number</label>
+					<input type="number" id="userphone_r" required><br>
+					<label for="usergender_r">Gender</label>
+		        	<span id="usergender_r">
+						<label for="male">Male</label>
+						<input type="radio" name="usergender_r" id="reg-male" value="M" checked>
+						<label for="female">Female</label>
+						<input type="radio" name="usergender_r" id="reg-female" value="F">
+					</span><br>
+					<label for="useremail_r">E-Mail</label>
+					<input type="email" id="useremail_r" required><br>
+					<div class="error_box"></div>
+					<button type="submit_r">SUBMIT</button>
+				</form>	
 			</div>
 		</div>
 
@@ -723,7 +727,74 @@
 		function killOverlay() {
 			$("#overlay").fadeOut(400);
 		}
+	</script>
 
+	<!-- ********************LOGIN/REGISTER API***************************** -->
+
+	<script type="text/javascript">
+		$('#login-form').submit(function(e){
+			e.preventDefault();
+			$('#login-form .error_box').html('').fadeOut();
+			$('#submit_l').prop('disabled', true);
+			$('#submit_r').prop('disabled', true);
+			var login_data = {
+								'useremail_l':$('#useremail_l').val(),
+								'userpassword_l':$('#userpassword_l').val()
+							};
+			console.log(login_data);
+			$.ajax({
+				url:'http://bits-apogee.org/api/login/',
+				method:'POST',
+				data:login_data,
+				success:function(response){
+					console.log(response);	
+					if(response.status)
+					{
+
+					}	
+					else
+					{
+						$('#login-form .error_box').html(error).fadeIn();
+						$('#submit_l').prop('disabled',false);
+						$('#submit_r').prop('disabled',false);
+					}
+				}
+			});
+		});
+
+		$('#reg-form').submit(function(e){
+			e.preventDefault();
+			var error="Incorrect E-mail or Phone number.";
+			var test_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+			var test_phone = /^([0-9]{10})$/i;
+
+			var reg_data = {
+								'name':$('#username_r').val(),
+								'college':$('#usercollege_r').val(),
+								'phone_one':$('#userphone_r').val(),
+								'gender':$('#usergender_r > input:checked').val(),
+								'email_id':$('#useremail_r').val(),
+							};
+			console.log(reg_data);		
+			if( (test_email.test(reg_data.email_id)) && (test_phone.test(reg_data.phone)) )
+			{
+				$('#submit_l').prop('disabled', true);
+				$('#submit_r').prop('disabled', true);
+				$.ajax({
+					url:'http://bits-apogee.org/api/reg/',
+					method:"POST",
+					data:reg_data,
+					success:function(response){
+						console.log(response);		
+					}
+				});
+			}
+			else
+			{
+				$('#reg-form .error_box').html(error).fadeIn();
+			}
+
+		});
 	</script>
 
 	<div id="fb-root"></div>
